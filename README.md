@@ -1,7 +1,7 @@
 # BBO Capstone Project
 
 ## Overview
-This project tackles a black-box optimisation challenge with 8 unknown functions.
+This project tackles a black-box optimisation challenge with 8 unknown functions as part of the Imperial College Professional Certificate in AI/ML. 
 Goal: maximise each function using sequential queries (one per function per week).
 
 ## Repository Structure
