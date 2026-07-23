@@ -1,6 +1,6 @@
 # Model Card: Adaptive Gaussian Process Optimiser
 
-This model card follows the *Model Cards for Model Reporting* framework (Mitchell et al., 2019) and documents the Bayesian optimisation approach used in the BBO Capstone project.
+This model card follows the *Model Cards for Model Reporting* framework (Mitchell et al 2019) and documents the Bayesian optimisation approach I used in the BBO Capstone project.
 
 ---
 
@@ -28,10 +28,10 @@ This model card follows the *Model Cards for Model Reporting* framework (Mitchel
 - Educational settings.
 
 **Avoid for:**
-- Functions with discrete or categorical inputs – violates the continuous GP assumption.
-- Problems where queries are cheap and unlimited – sample‑efficient strategies are unnecessary.
-- Settings where the response surface is highly non‑stationary in ways the kernel cannot capture.
-- Applications requiring real‑time decisions – GP inference scales poorly beyond ~100 points.
+- Functions with discrete or categorical inputs – violates the continuous GP assumption
+- Problems where queries are cheap and unlimited thus rendring sample‑efficiency unnecessary
+- Settings where the response surface is highly non‑stationary in ways the kernel cannot capture
+- Applications requiring real‑time decisions
 
 ---
 
@@ -39,7 +39,7 @@ This model card follows the *Model Cards for Model Reporting* framework (Mitchel
 
 | Factor | Relevance |
 |--------|-----------|
-| **Function dimensionality** | Applied to 2D through 8D functions. Performance degrades as dimensionality increases due to the curse of dimensionality. |
+| **Function dimensionality** | Applied to 2D through 8D functions. Performance degrades as dimensionality increases due to the "curse of dimensionality". |
 | **Budget** | Results depend on the query budget. With 13 rounds completed, higher‑dimensional functions remain undersampled relative to the size of their input spaces. |
 | **Function smoothness** | The RBF kernel assumes smooth, continuous functions. Performance degrades on functions with discontinuities or isolated spikes. |
 | **Noise level** | Some functions (F2) appear noisy. Noisy outputs reduce GP accuracy and may mislead the acquisition function. |
@@ -75,7 +75,7 @@ This model card follows the *Model Cards for Model Reporting* framework (Mitchel
 
 ## Training Data
 
-The GP surrogate is fitted at each round to all accumulated (input, output) pairs for each function. There is no separate training/test split – the model is updated online with each new observation. See `DATASHEET.md` for full dataset documentation.
+The GP surrogate was fitted at each round where a GP‑based strategy was used. For functions switched to heuristics (F1, F5, F6, F7 in later rounds), no GP was fitted. In the final round, pure exploitation in the form of small perturbations was used for all functions. There is no separate training/test split – the model is updated online with each new observation. See `DATASHEET.md` for full dataset documentation.
 
 ---
 
@@ -104,15 +104,13 @@ The model is evaluated implicitly through the optimisation loop: a better query 
 
 **Known limitations:**
 
-- **Cubic scaling:** GP inference scales as O(n³). Not a constraint at current dataset sizes, but would become limiting beyond ~200 points.
 - **Single‑query budget:** One query per week means a misleading result can misdirect strategy for multiple rounds.
 - **Smoothness assumption:** The RBF kernel assumes smooth, continuous functions. Functions with narrow isolated peaks (F1) are not well‑modelled.
 - **Local optima:** With limited data, the GP may converge to a local rather than global maximum.
 - **Dimensionality:** Results for F7 (6D) and F8 (8D) should be interpreted cautiously – 50 observations provide minimal coverage of a 6D/8D space.
 
 **Recommendations for future use:**
-- For datasets larger than ~200 points, consider GPyTorch or sparse GP approximations.
-- For higher‑dimensional functions, use Latin hypercube sampling or Sobol sequences for better initial coverage.
+- For higher‑dimensional functions, use Latin hypercube sampling or Sobol sequences early on for better initial coverage.
 - For functions with sudden discontinuities, use fallback heuristics (centroid, perturbations) as in this approach.
 
 ---
@@ -124,13 +122,13 @@ The model is evaluated implicitly through the optimisation loop: a better query 
 **Reproducibility:** Any peer or facilitator can replicate the optimisation trajectory from any round. Strategy decisions are documented so reasoning can be reconstructed. The adaptive nature means strategy changes are driven explicitly by observed data – the logic is auditable at each step.
 
 **Bias and fairness:**
-- Synthetic functions only – no real‑world data, human subjects, or sensitive information involved.
-- Sampling bias: queries cluster around promising regions; large parts of the search space remain unsampled.
-- Strategy bias: early choices influence later queries.
-- Function‑specific bias: strategies that worked for one function may not generalise to others.
+- Synthetic functions only – no real‑world data, human subjects, or sensitive information involved
+- Sampling bias: queries cluster around promising regions; large parts of the search space remain unsampled
+- Strategy bias: early choices influence later queries
+- Function‑specific bias: strategies that worked for one function may not generalise to others
 
 **Mitigations:**
-- Trust regions and fallback heuristics prevent wild extrapolation.
+- Trust regions and fallback heuristics prevent over-extrapolation.
 - Per‑function hyperparameter tuning adapts to each function’s observed behaviour.
 - If a model consistently fails, the approach switches to heuristics.
 
