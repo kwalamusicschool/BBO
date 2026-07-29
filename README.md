@@ -115,55 +115,6 @@ LHS exploration – used in Round 5; failed on F2, F6, F7 and abandoned.
 Midpoint heuristic – used on F3 in Round 11; failed and abandoned.
 Weighted centroid – used as fallback for F6 when GP failed.
 
-## Repository Structure
-
-```
-bbo-capstone/
-├── README.md
-├── datasheet.md
-├── model-card.md
-├── requirements.txt
-├── .gitignore
-├── data/
-│   ├── initial/
-│   │   ├── initial_inputs_F1.npy
-│   │   ├── initial_inputs_F2.npy
-│   │   ├── initial_inputs_F3.npy
-│   │   ├── initial_inputs_F4.npy
-│   │   ├── initial_inputs_F5.npy
-│   │   ├── initial_inputs_F6.npy
-│   │   ├── initial_inputs_F7.npy
-│   │   ├── initial_inputs_F8.npy
-│   │   ├── initial_outputs_F1.npy
-│   │   ├── initial_outputs_F2.npy
-│   │   ├── initial_outputs_F3.npy
-│   │   ├── initial_outputs_F4.npy
-│   │   ├── initial_outputs_F5.npy
-│   │   ├── initial_outputs_F6.npy
-│   │   ├── initial_outputs_F7.npy
-│   │   └── initial_outputs_F8.npy
-│   └── results/
-│       ├── all_results.csv
-│       ├── raw_round_1.txt
-│       └── ...
-├── notebooks/
-│   ├── 01_data_exploration.ipynb
-│   ├── 02_round1_query_generation.ipynb
-│   ├── 03_round2_query_generation.ipynb
-│   ├── ...
-│   └── 13_round13_query_generation.ipynb
-├── src/
-│   ├── gp_utils.py
-│   ├── acquisition.py
-│   ├── heuristics.py
-│   └── sanity_checks.py
-└── reports/
-    ├── figures/
-    │   ├── progress_all_functions.png
-    │   └── peer_comparison.png
-    └── final_report.md
-```
-
 ## Known Issue: Round 3 Data Discrepancy
 
 
