@@ -1,6 +1,14 @@
 ## Black-Box Optimization Capstone Challenge - Imperial College London Professional Certificate in AI/ML
 
-## Section 1: Project Overview
+## Section 1: Non-Technical Summary
+
+This project can be compared to a mathematical treasure hunt with a limited number of guesses. I had eight unknown functions, and my goal was to find the input combination that gives the highest output. Each query was expensive – I could only make one per function per week.
+It's a form of training in making good decisions in the face of uncertainty. Early on, I explored broadly to understand each function's shape, later refining the most promising regions.
+Over 13 weeks, my strategy adapted to each function's behaviour. I improved my results for all eight functions, with several achieving their best outputs in the final weeks. The biggest successes were turning Function 4 from negative to positive and pushing Function 8 to 9.98. 
+
+**Key results:** Function 4 improved from -4.03 to +0.65; Function 5 reached 1587; Function 7 reached 2.03; Function 8 reached 9.98.
+
+## Section 2: Project Overview
 
 This project is a Bayesian optimization challenge where the goal is to maximize the output of eight black-box functions through a series of iterative queries. Each function accepts a fixed-dimensional (2D - 8D) input vector and returns a single scalar output. Each function's internal equations are hidden; only input-output pairs are observable.
 
@@ -8,7 +16,7 @@ The challenge simulates real-world scenarios where function evaluations are expe
 
 The skills developed here include reasoning under uncertainty, building surrogate models, balancing exploration and exploitation, and revising strategy based on new evidence.
 
-## Section 2: Inputs and Outputs
+## Section 3: Inputs and Outputs
 
 Each of the eight functions takes a continuous input vector with values constrained to [0,1] and returns a single scalar output. Dimensionality ranges from 2D to 8D.
 
@@ -44,7 +52,7 @@ Output: A single floating-point scalar returned by the portal after each submiss
 | F7 | 6 | 30 | ML model hyperparameter tuning |
 | F8 | 8 | 40 | High-dimensional model performance |
 
-## Section 3: Challenge Objectives
+## Section 4: Challenge Objectives
 
 The goal is to maximize the output of every functon. Some functions are naturally minimisation problems (eg drug side effects, cake recipe), but the returned output is transformed so that higher is always better.
 
@@ -55,7 +63,7 @@ No access to function structure - we are not told the formula, and we dont know 
 We do not know the number of optima or whether functions are multi- or unimodal, except that F5 is unimodal. 
 Results return weekly, meaning delayed feedback with no ability to rapidly iterate. The dimensions are not uniform across functions, and higher dimensional spaces are more difficult to search ("the curse of dimensionality")
 
-## Section 4: Technical Approach
+## Section 5: Technical Approach
 
 ## Surrogate Model
 
@@ -116,7 +124,6 @@ Midpoint heuristic – used on F3 in Round 11; failed and abandoned.
 Weighted centroid – used as fallback for F6 when GP failed.
 
 ## Known Issue: Round 3 Data Discrepancy
-
 
 After the project was completed, a data inconsistency was discovered in the Round 3 query arrays stored in the notebooks. The Round 3 values in the notebooks do not match the portal records.
 
